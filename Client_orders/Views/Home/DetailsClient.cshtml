@@ -1,0 +1,96 @@
+﻿@model Client_orders.Models.ViewModels.DetailsClientViewModel
+
+@{
+    ViewData["Title"] = "DetailsClient";
+}
+
+<h1>DetailsClient</h1>
+
+<div>
+  
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Client.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Client.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Client.BirthDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Client.BirthDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Client.Inn)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Client.Inn)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Client.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Client.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Client.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Client.Email)
+        </dd>
+    </dl>
+</div>
+<p>
+    <a href="/Home/CreateOrder?clientId=@Model.Client.ClientId">Create New Order</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders[0].OrderId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders[0].CreatedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orders[0].Status)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Orders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+
+                <td>
+                    <a asp-action="EditOrder" asp-route-id="@item.OrderId">Edit</a> |
+                    <a asp-action="DeleteOrder" asp-all-route-data='new Dictionary<string,string> { { "orderId",@item.OrderId.ToString()}, {"clientId",@item.ClientId.ToString() }}'>Delete</a>
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+
+    <a asp-action="Index">Back to List</a>
+</div>
